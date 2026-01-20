@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Validate manifest
+        run: |
+          if [ -f "module.manifest.json" ]; then
+            echo "✓ module.manifest.json exists"
+            cat module.manifest.json | python3 -m json.tool > /dev/null
+            echo "✓ module.manifest.json is valid JSON"
+          fi
+      
+      - name: Validate governance files
+        run: |
+          for file in README.md CHANGELOG.md OWNERS.md SECURITY.md module.contract.md; do
+            if [ -f "$file" ]; then
+              echo "✓ $file exists"
+            else
+              echo "✗ $file missing"
+              exit 1
+            fi
+          done
+      
+      - name: Success
+        run: echo "✓ All governance checks passed"
