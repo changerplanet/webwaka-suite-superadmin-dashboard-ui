@@ -1,32 +1,65 @@
 # WebWaka Suite Superadmin Dashboard UI
 
 ## Overview
-This is a React-based superadmin dashboard for the WebWaka Suite. It provides a UI for managing users, modules, and system settings.
+Declarative, controlled, minimal Super Admin Dashboard UI for the WebWaka Modular Platform. This UI is a pure consumer of Phase 4A dashboard declarations - it does not contain any business logic, hardcoded roles, or permission checks.
+
+## Architecture
+- **Framework**: Next.js 14 (App Router) with TypeScript
+- **Styling**: Tailwind CSS
+- **Testing**: Jest + React Testing Library
+
+### Key Principles
+- UI is declarative and controlled
+- All visibility decisions come from Phase 4A control engine
+- No hardcoded roles or permissions
+- Supports snapshot-based offline evaluation
+- Mobile-first, responsive design
 
 ## Project Structure
-- `src/` - React source code
-  - `App.jsx` - Main dashboard component
-  - `App.css` - Dashboard styles
-  - `main.jsx` - Application entry point
-  - `index.css` - Global styles
-- `public/` - Static assets
-- `index.html` - HTML entry point
-- `vite.config.js` - Vite configuration
+```
+app/
+  layout.tsx       - Root layout
+  page.tsx         - Dashboard page
+  globals.css      - Global styles
+components/
+  Dashboard.tsx    - Main dashboard component
+  Sidebar.tsx      - Navigation sidebar with visibility controls
+  Header.tsx       - Header with context info
+  SectionPanel.tsx - Section renderer with "Controlled by Core" badge
+lib/
+  types.ts           - TypeScript interfaces
+  dashboard-control.ts - Phase 4A integration (resolveDashboard, snapshots)
+  mock-context.ts    - Mock contexts for development
+__tests__/
+  dashboard-control.test.ts - Control engine tests
+  components.test.tsx       - Component tests
+  Dashboard.test.tsx        - Dashboard integration tests
+```
 
-## Technology Stack
-- React 18
-- Vite 5 (build tool)
-- Node.js 20
+## Phase 4A Integration
+The dashboard uses the following functions from the control layer:
+- `resolveDashboard(context)` - Resolve visible sections based on permissions, entitlements, and feature flags
+- `generateDashboardSnapshot(dashboard, ttl)` - Create signed snapshot for offline use
+- `verifyDashboardSnapshot(snapshot)` - Verify snapshot integrity and expiration
+- `evaluateFromSnapshot(snapshot)` - Render from snapshot if valid
 
 ## Development
-Run `npm run dev` to start the development server on port 5000.
+```bash
+npm run dev     # Start dev server on port 5000
+npm run build   # Build for production
+npm test        # Run tests
+npm run test:coverage  # Run tests with coverage
+```
 
-## Building
-Run `npm run build` to create a production build in the `dist/` directory.
-
-## Deployment
-The project is configured for static deployment. The build command generates optimized files in the `dist/` folder.
+## Guarantees
+- No hardcoded roles in UI
+- No permission logic in UI code
+- All visibility controlled by Phase 4A resolver
+- UI is purely declarative and controlled
 
 ## Recent Changes
-- 2026-01-20: Initial project setup with React and Vite
-- 2026-01-20: Created superadmin dashboard UI with sidebar navigation, stats cards, and activity feed
+- 2026-01-20: Implemented Next.js App Router with TypeScript
+- 2026-01-20: Added Phase 4A dashboard control integration
+- 2026-01-20: Created mobile-first responsive dashboard UI
+- 2026-01-20: Added snapshot-based rendering support
+- 2026-01-20: Added comprehensive test suite (38 tests)

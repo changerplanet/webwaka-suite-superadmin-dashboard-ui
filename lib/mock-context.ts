@@ -1,0 +1,71 @@
+import { DashboardContext } from './types'
+
+export const mockSuperAdminContext: DashboardContext = {
+  userId: 'superadmin-001',
+  role: 'superadmin',
+  permissions: [
+    { id: 'view:overview', granted: true },
+    { id: 'view:users', granted: true },
+    { id: 'view:modules', granted: true },
+    { id: 'view:permissions', granted: true },
+    { id: 'view:entitlements', granted: true },
+    { id: 'view:feature-flags', granted: true },
+    { id: 'view:audit-logs', granted: true },
+    { id: 'view:settings', granted: true },
+  ],
+  entitlements: [
+    { id: 'overview', active: true },
+    { id: 'users', active: true },
+    { id: 'modules', active: true },
+    { id: 'permissions', active: true },
+    { id: 'entitlements', active: true },
+    { id: 'feature-flags', active: true },
+    { id: 'audit-logs', active: true },
+    { id: 'settings', active: true },
+  ],
+  featureFlags: [
+    { id: 'section:overview', enabled: true },
+    { id: 'section:users', enabled: true },
+    { id: 'section:modules', enabled: true },
+    { id: 'section:permissions', enabled: true },
+    { id: 'section:entitlements', enabled: true },
+    { id: 'section:feature-flags', enabled: true },
+    { id: 'section:audit-logs', enabled: true },
+    { id: 'section:settings', enabled: false },
+  ],
+}
+
+export const mockLimitedContext: DashboardContext = {
+  userId: 'admin-002',
+  role: 'admin',
+  permissions: [
+    { id: 'view:overview', granted: true },
+    { id: 'view:users', granted: true },
+    { id: 'view:modules', granted: false },
+    { id: 'view:permissions', granted: false },
+    { id: 'view:entitlements', granted: false },
+    { id: 'view:feature-flags', granted: false },
+    { id: 'view:audit-logs', granted: true },
+    { id: 'view:settings', granted: false },
+  ],
+  entitlements: [
+    { id: 'overview', active: true },
+    { id: 'users', active: true },
+    { id: 'modules', active: false },
+    { id: 'permissions', active: false },
+    { id: 'entitlements', active: false },
+    { id: 'feature-flags', active: false },
+    { id: 'audit-logs', active: true },
+    { id: 'settings', active: false },
+  ],
+  featureFlags: [
+    { id: 'section:overview', enabled: true },
+    { id: 'section:users', enabled: true },
+    { id: 'section:modules', enabled: true },
+    { id: 'section:permissions', enabled: true },
+    { id: 'section:entitlements', enabled: true },
+    { id: 'section:feature-flags', enabled: true },
+    { id: 'section:audit-logs', enabled: true },
+    { id: 'section:settings', enabled: true },
+  ],
+}
