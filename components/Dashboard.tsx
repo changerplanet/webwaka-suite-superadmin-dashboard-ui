@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { DashboardContext, ResolvedDashboard, DashboardSnapshot } from '@/lib/types'
 import { 
   resolveDashboard, 
@@ -20,6 +20,7 @@ export default function Dashboard({ context, initialSnapshot }: DashboardProps) 
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [showDevMode, setShowDevMode] = useState(false)
   const [useSnapshot, setUseSnapshot] = useState(!!initialSnapshot)
+  const [activeSection, setActiveSection] = useState('')
 
   const resolvedDashboard: ResolvedDashboard = useMemo(() => {
     if (useSnapshot && initialSnapshot) {
@@ -36,7 +37,13 @@ export default function Dashboard({ context, initialSnapshot }: DashboardProps) 
   }, [resolvedDashboard])
 
   const visibleSections = resolvedDashboard.sections.filter(s => s.visible)
-  const [activeSection, setActiveSection] = useState(visibleSections[0]?.id || '')
+
+  useEffect(() => {
+    const isActiveSectionVisible = visibleSections.some(s => s.id === activeSection)
+    if (!isActiveSectionVisible && visibleSections.length > 0) {
+      setActiveSection(visibleSections[0].id)
+    }
+  }, [visibleSections, activeSection])
 
   const currentSection = visibleSections.find(s => s.id === activeSection) || visibleSections[0]
 

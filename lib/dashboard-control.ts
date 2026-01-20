@@ -84,7 +84,7 @@ export function resolveDashboard(context: DashboardContext): ResolvedDashboard {
 
   return {
     sections: sections.sort((a, b) => a.order - b.order),
-    groups: SECTION_GROUPS,
+    groups: SECTION_GROUPS.map(g => ({ ...g })),
     resolvedAt: new Date().toISOString(),
     contextHash: hashContext(context),
   }

@@ -147,3 +147,13 @@ describe('Layout Tests', () => {
     expect(screen.getByText('Activity')).toBeInTheDocument()
   })
 })
+
+describe('Defensive Copy Tests', () => {
+  it('should return defensive copy of groups from resolveDashboard', () => {
+    const dashboard1 = resolveDashboard(mockSuperAdminContext)
+    const dashboard2 = resolveDashboard(mockSuperAdminContext)
+    
+    expect(dashboard1.groups).not.toBe(dashboard2.groups)
+    expect(dashboard1.groups[0]).not.toBe(dashboard2.groups[0])
+  })
+})
