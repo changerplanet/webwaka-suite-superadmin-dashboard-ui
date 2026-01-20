@@ -9,7 +9,7 @@ import {
 } from '@/lib/dashboard-control'
 import Sidebar from './Sidebar'
 import Header from './Header'
-import SectionPanel from './SectionPanel'
+import SectionContent from './sections/SectionContent'
 
 interface DashboardProps {
   context: DashboardContext
@@ -44,6 +44,7 @@ export default function Dashboard({ context, initialSnapshot }: DashboardProps) 
     <div className="min-h-screen flex bg-slate-100">
       <Sidebar
         sections={resolvedDashboard.sections}
+        groups={resolvedDashboard.groups}
         activeSection={activeSection}
         onSectionSelect={setActiveSection}
         isOpen={sidebarOpen}
@@ -51,7 +52,7 @@ export default function Dashboard({ context, initialSnapshot }: DashboardProps) 
         showDevMode={showDevMode}
       />
 
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col min-h-screen lg:ml-0">
         <Header
           title={currentSection?.title || 'Dashboard'}
           contextHash={resolvedDashboard.contextHash}
@@ -61,13 +62,13 @@ export default function Dashboard({ context, initialSnapshot }: DashboardProps) 
           onToggleDevMode={() => setShowDevMode(!showDevMode)}
         />
 
-        <main className="flex-1 p-6">
-          {currentSection && <SectionPanel section={currentSection} />}
+        <main className="flex-1 p-4 lg:p-6 overflow-auto">
+          {currentSection && <SectionContent section={currentSection} />}
           
           {showDevMode && (
             <div className="mt-6 bg-purple-50 border border-purple-200 rounded-xl p-6">
               <h3 className="font-semibold text-purple-800 mb-3">Dev Mode: Resolution Details</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div>
                   <p className="font-medium text-purple-700">Context</p>
                   <p className="text-slate-600">User: {context.userId}</p>
@@ -75,10 +76,11 @@ export default function Dashboard({ context, initialSnapshot }: DashboardProps) 
                 </div>
                 <div>
                   <p className="font-medium text-purple-700">Resolution</p>
+                  <p className="text-slate-600">Total: {resolvedDashboard.sections.length} sections</p>
                   <p className="text-slate-600">Visible: {visibleSections.length} sections</p>
                   <p className="text-slate-600">Hidden: {resolvedDashboard.sections.length - visibleSections.length} sections</p>
                 </div>
-                <div className="md:col-span-2">
+                <div>
                   <p className="font-medium text-purple-700">Snapshot</p>
                   <p className="text-slate-600">Signature: {snapshot.signature}</p>
                   <p className="text-slate-600">Expires: {new Date(snapshot.expiresAt).toLocaleString()}</p>

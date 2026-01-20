@@ -1,0 +1,206 @@
+
+Super Admin Dashboard UI Expansion (Structure-Only)
+
+⸻
+
+CONTEXT
+
+You are implementing Phase 4B-2 of the WebWaka Modular Rebuild.
+
+This phase expands the Super Admin Dashboard UI created in Phase 4B-1.
+
+The control logic MUST NOT CHANGE.
+
+All visibility, access, and gating decisions continue to be resolved exclusively by:
+	•	Permissions
+	•	Entitlements
+	•	Feature Flags
+
+…via Phase 4A Dashboard Control Engine ONLY.
+
+⸻
+
+REPOSITORY (MANDATORY)
+
+Repo name (already exists):
+webwaka-suite-superadmin-dashboard-ui
+
+🚨 HARD REQUIREMENT
+	1.	You MUST clone this repository from GitHub before writing any code.
+	2.	If the repo is not found or cannot be cloned:
+	•	⛔ STOP immediately
+	•	⛔ DO NOT scaffold a new project
+	•	⛔ Report the issue
+
+No local-only or parallel codebases are allowed.
+
+⸻
+
+SCOPE OF THIS PHASE (STRICT)
+
+✅ YOU ARE ALLOWED TO:
+	•	Add UI layout structure
+	•	Add component shells
+	•	Add empty pages, tables, cards, and forms
+	•	Add navigation wiring
+	•	Add responsive layout improvements
+	•	Add design-system primitives
+	•	Add placeholder copy
+
+❌ YOU MUST NOT:
+	•	Implement business logic
+	•	Fetch real data
+	•	Call APIs
+	•	Add permissions/entitlement logic
+	•	Hardcode roles
+	•	Add pricing, incentives, or ledger behavior
+	•	Bypass Phase 4A resolver
+	•	Re-implement gating logic
+
+This is STRUCTURE ONLY.
+
+⸻
+
+OBJECTIVE
+
+Transform the Super Admin Dashboard from a “controlled shell” into a fully navigable, enterprise-grade UI skeleton, ready for future integrations.
+
+All sections must:
+	•	Render deterministically
+	•	Respect snapshot-based visibility
+	•	Work offline with snapshots
+	•	Be explainable (why visible / hidden)
+
+⸻
+
+REQUIRED UI EXPANSIONS
+
+For each existing Super Admin section, implement:
+
+1️⃣ Section Landing Page
+
+Each section gets:
+	•	Title
+	•	Description
+	•	Empty state messaging
+	•	Placeholder KPI cards (no data)
+	•	Placeholder table or panel
+
+Example:
+	•	/platform-governance
+	•	/partners
+	•	/pricing
+	•	/incentives
+	•	/feature-flags
+	•	/branding
+	•	/infrastructure
+	•	/audit
+	•	/ai
+
+⸻
+
+2️⃣ Standard Layout Components (Reusable)
+
+Create reusable components:
+	•	PageLayout
+	•	SectionHeader
+	•	KpiPlaceholder
+	•	TablePlaceholder
+	•	EmptyState
+	•	ComingSoonBanner
+
+All must be pure presentational components.
+
+⸻
+
+3️⃣ Navigation Enhancements
+	•	Sidebar grouping by domain
+	•	Breadcrumbs
+	•	Mobile-friendly navigation
+	•	Collapsible sections
+	•	Active state indicators
+
+No logic — only rendering based on resolved dashboard output.
+
+⸻
+
+4️⃣ Design System Foundation
+
+Introduce:
+	•	Spacing scale
+	•	Typography scale
+	•	Color tokens (neutral only, branding comes later)
+	•	Button variants
+	•	Card variants
+	•	Table styles
+
+No tenant or partner branding yet.
+
+⸻
+
+5️⃣ Developer Experience Enhancements
+	•	Dev toggle to show:
+	•	Hidden sections
+	•	Visibility reasons (already available via Phase 4A)
+	•	Clear TODO markers where integrations will later attach
+
+⸻
+
+TECHNICAL CONSTRAINTS (NON-NEGOTIABLE)
+	•	Next.js App Router
+	•	TypeScript strict mode
+	•	Tailwind CSS
+	•	Jest + RTL tests must continue passing
+	•	Snapshot rendering must remain unchanged
+	•	No new dependencies without necessity
+
+⸻
+
+TESTING REQUIREMENTS
+
+Add or update tests to prove:
+	•	UI renders with snapshot input
+	•	Layout renders deterministically
+	•	Mobile and desktop layouts render
+	•	No visibility logic exists in UI components
+
+Tests must NOT mock permissions directly.
+
+⸻
+
+HARD STOP CONDITIONS
+
+This phase is COMPLETE only if:
+
+✅ Super Admin Dashboard is fully navigable
+✅ Every section has a structured landing page
+✅ UI contains zero access logic
+✅ Phase 4A resolver remains the sole gatekeeper
+✅ All tests pass
+✅ Repo builds and deploys to Vercel successfully
+
+⸻
+
+DELIVERABLE
+
+Produce a Phase 4B-2 Completion Report including:
+	•	Section list + routes
+	•	Component inventory
+	•	Screenshots (optional)
+	•	Test summary
+	•	Final commit SHA
+
+Then:
+
+⛔ STOP
+⛔ Await explicit authorization
+
+⸻
+
+ACKNOWLEDGEMENT
+
+Reply only with:
+
+“Acknowledged. I will clone the repo first and execute Phase 4B-2 exactly as instructed.”
+
+Then proceed.

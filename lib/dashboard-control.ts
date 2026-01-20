@@ -2,18 +2,35 @@ import {
   DashboardContext, 
   ResolvedDashboard, 
   DashboardSnapshot,
-  DashboardSection 
+  DashboardSection,
+  SectionGroup
 } from './types'
 
+const SECTION_GROUPS: SectionGroup[] = [
+  { id: 'core', title: 'Core', order: 1 },
+  { id: 'governance', title: 'Governance', order: 2 },
+  { id: 'platform', title: 'Platform', order: 3 },
+  { id: 'operations', title: 'Operations', order: 4 },
+]
+
 const DASHBOARD_SECTIONS: Omit<DashboardSection, 'visible' | 'hiddenReason'>[] = [
-  { id: 'overview', title: 'Overview', order: 1 },
-  { id: 'users', title: 'User Management', order: 2 },
-  { id: 'modules', title: 'Module Registry', order: 3 },
-  { id: 'permissions', title: 'Permission Manager', order: 4 },
-  { id: 'entitlements', title: 'Entitlements', order: 5 },
-  { id: 'feature-flags', title: 'Feature Flags', order: 6 },
-  { id: 'audit-logs', title: 'Audit Logs', order: 7 },
-  { id: 'settings', title: 'System Settings', order: 8 },
+  { id: 'overview', title: 'Overview', description: 'Platform overview and key metrics', group: 'core', icon: '📊', order: 1 },
+  { id: 'users', title: 'User Management', description: 'Manage platform users and access', group: 'core', icon: '👥', order: 2 },
+  { id: 'partners', title: 'Partners', description: 'Partner organizations and relationships', group: 'core', icon: '🤝', order: 3 },
+  
+  { id: 'modules', title: 'Module Registry', description: 'Installed modules and configurations', group: 'governance', icon: '📦', order: 4 },
+  { id: 'permissions', title: 'Permissions', description: 'Permission definitions and assignments', group: 'governance', icon: '🔐', order: 5 },
+  { id: 'entitlements', title: 'Entitlements', description: 'Feature entitlements and quotas', group: 'governance', icon: '🎫', order: 6 },
+  { id: 'feature-flags', title: 'Feature Flags', description: 'Feature toggles and rollouts', group: 'governance', icon: '🚩', order: 7 },
+  
+  { id: 'pricing', title: 'Pricing', description: 'Pricing tiers and billing configuration', group: 'platform', icon: '💰', order: 8 },
+  { id: 'incentives', title: 'Incentives', description: 'Reward programs and incentive structures', group: 'platform', icon: '🎁', order: 9 },
+  { id: 'branding', title: 'Branding', description: 'Visual identity and theming', group: 'platform', icon: '🎨', order: 10 },
+  { id: 'ai', title: 'AI Services', description: 'AI models and automation settings', group: 'platform', icon: '🤖', order: 11 },
+  
+  { id: 'audit-logs', title: 'Audit Logs', description: 'System activity and compliance logs', group: 'operations', icon: '📋', order: 12 },
+  { id: 'infrastructure', title: 'Infrastructure', description: 'System health and resources', group: 'operations', icon: '🖥️', order: 13 },
+  { id: 'settings', title: 'Settings', description: 'Global system configuration', group: 'operations', icon: '⚙️', order: 14 },
 ]
 
 function hashContext(context: DashboardContext): string {
@@ -67,6 +84,7 @@ export function resolveDashboard(context: DashboardContext): ResolvedDashboard {
 
   return {
     sections: sections.sort((a, b) => a.order - b.order),
+    groups: SECTION_GROUPS,
     resolvedAt: new Date().toISOString(),
     contextHash: hashContext(context),
   }
@@ -118,3 +136,5 @@ export function evaluateFromSnapshot(snapshot: DashboardSnapshot): ResolvedDashb
   }
   return snapshot.dashboard
 }
+
+export { SECTION_GROUPS }

@@ -24,13 +24,23 @@ export interface DashboardContext {
 export interface DashboardSection {
   id: string
   title: string
+  description?: string
+  group: string
+  icon?: string
   visible: boolean
   hiddenReason?: string
   order: number
 }
 
+export interface SectionGroup {
+  id: string
+  title: string
+  order: number
+}
+
 export interface ResolvedDashboard {
   sections: DashboardSection[]
+  groups: SectionGroup[]
   resolvedAt: string
   contextHash: string
 }

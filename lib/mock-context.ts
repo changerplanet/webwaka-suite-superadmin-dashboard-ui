@@ -1,38 +1,20 @@
 import { DashboardContext } from './types'
 
+const allSections = [
+  'overview', 'users', 'partners', 'modules', 'permissions', 
+  'entitlements', 'feature-flags', 'pricing', 'incentives', 
+  'branding', 'ai', 'audit-logs', 'infrastructure', 'settings'
+]
+
 export const mockSuperAdminContext: DashboardContext = {
   userId: 'superadmin-001',
   role: 'superadmin',
-  permissions: [
-    { id: 'view:overview', granted: true },
-    { id: 'view:users', granted: true },
-    { id: 'view:modules', granted: true },
-    { id: 'view:permissions', granted: true },
-    { id: 'view:entitlements', granted: true },
-    { id: 'view:feature-flags', granted: true },
-    { id: 'view:audit-logs', granted: true },
-    { id: 'view:settings', granted: true },
-  ],
-  entitlements: [
-    { id: 'overview', active: true },
-    { id: 'users', active: true },
-    { id: 'modules', active: true },
-    { id: 'permissions', active: true },
-    { id: 'entitlements', active: true },
-    { id: 'feature-flags', active: true },
-    { id: 'audit-logs', active: true },
-    { id: 'settings', active: true },
-  ],
-  featureFlags: [
-    { id: 'section:overview', enabled: true },
-    { id: 'section:users', enabled: true },
-    { id: 'section:modules', enabled: true },
-    { id: 'section:permissions', enabled: true },
-    { id: 'section:entitlements', enabled: true },
-    { id: 'section:feature-flags', enabled: true },
-    { id: 'section:audit-logs', enabled: true },
-    { id: 'section:settings', enabled: false },
-  ],
+  permissions: allSections.map(id => ({ id: `view:${id}`, granted: true })),
+  entitlements: allSections.map(id => ({ id, active: true })),
+  featureFlags: allSections.map(id => ({ 
+    id: `section:${id}`, 
+    enabled: id !== 'settings'
+  })),
 }
 
 export const mockLimitedContext: DashboardContext = {
@@ -41,31 +23,22 @@ export const mockLimitedContext: DashboardContext = {
   permissions: [
     { id: 'view:overview', granted: true },
     { id: 'view:users', granted: true },
+    { id: 'view:partners', granted: false },
     { id: 'view:modules', granted: false },
     { id: 'view:permissions', granted: false },
     { id: 'view:entitlements', granted: false },
     { id: 'view:feature-flags', granted: false },
+    { id: 'view:pricing', granted: false },
+    { id: 'view:incentives', granted: false },
+    { id: 'view:branding', granted: false },
+    { id: 'view:ai', granted: false },
     { id: 'view:audit-logs', granted: true },
+    { id: 'view:infrastructure', granted: false },
     { id: 'view:settings', granted: false },
   ],
-  entitlements: [
-    { id: 'overview', active: true },
-    { id: 'users', active: true },
-    { id: 'modules', active: false },
-    { id: 'permissions', active: false },
-    { id: 'entitlements', active: false },
-    { id: 'feature-flags', active: false },
-    { id: 'audit-logs', active: true },
-    { id: 'settings', active: false },
-  ],
-  featureFlags: [
-    { id: 'section:overview', enabled: true },
-    { id: 'section:users', enabled: true },
-    { id: 'section:modules', enabled: true },
-    { id: 'section:permissions', enabled: true },
-    { id: 'section:entitlements', enabled: true },
-    { id: 'section:feature-flags', enabled: true },
-    { id: 'section:audit-logs', enabled: true },
-    { id: 'section:settings', enabled: true },
-  ],
+  entitlements: allSections.map(id => ({ 
+    id, 
+    active: ['overview', 'users', 'audit-logs'].includes(id)
+  })),
+  featureFlags: allSections.map(id => ({ id: `section:${id}`, enabled: true })),
 }

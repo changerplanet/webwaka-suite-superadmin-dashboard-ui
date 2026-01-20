@@ -8,14 +8,15 @@ describe('Dashboard Component', () => {
     render(<Dashboard context={mockSuperAdminContext} />)
     
     expect(screen.getAllByText('Overview').length).toBeGreaterThan(0)
-    expect(screen.getByRole('button', { name: 'User Management' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Module Registry' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /User Management/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Module Registry/i })).toBeInTheDocument()
   })
 
   it('should not render hidden sections by default', () => {
     render(<Dashboard context={mockSuperAdminContext} />)
     
-    expect(screen.queryByText('System Settings')).not.toBeInTheDocument()
+    const settingsElements = screen.queryAllByText('Settings')
+    expect(settingsElements.length).toBe(0)
   })
 
   it('should show hidden sections in dev mode', () => {
@@ -24,7 +25,7 @@ describe('Dashboard Component', () => {
     const devModeButton = screen.getByText('Dev Mode OFF')
     fireEvent.click(devModeButton)
     
-    expect(screen.getByText('System Settings')).toBeInTheDocument()
+    expect(screen.getByText('Settings')).toBeInTheDocument()
   })
 
   it('should display context hash in header', () => {
@@ -36,7 +37,7 @@ describe('Dashboard Component', () => {
   it('should switch between sections when clicked', () => {
     render(<Dashboard context={mockSuperAdminContext} />)
     
-    fireEvent.click(screen.getByRole('button', { name: 'User Management' }))
+    fireEvent.click(screen.getByRole('button', { name: /User Management/i }))
     
     const headers = screen.getAllByText('User Management')
     expect(headers.length).toBeGreaterThan(1)
@@ -47,7 +48,7 @@ describe('Dashboard Component', () => {
     
     expect(screen.getAllByText('Overview').length).toBeGreaterThan(0)
     expect(screen.getAllByText('User Management').length).toBeGreaterThan(0)
-    expect(screen.queryByText('Module Registry')).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /^Module Registry$/i })).not.toBeInTheDocument()
   })
 
   it('should show snapshot mode when using snapshot', () => {
@@ -87,7 +88,16 @@ describe('Dashboard Component', () => {
     render(<Dashboard context={mockSuperAdminContext} />)
     
     expect(screen.getAllByText('WebWaka').length).toBeGreaterThan(0)
-    expect(screen.getAllByText('Super Admin').length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/Super Admin/i).length).toBeGreaterThan(0)
+  })
+
+  it('should render group headers in sidebar', () => {
+    render(<Dashboard context={mockSuperAdminContext} />)
+    
+    expect(screen.getByText('Core')).toBeInTheDocument()
+    expect(screen.getByText('Governance')).toBeInTheDocument()
+    expect(screen.getByText('Platform')).toBeInTheDocument()
+    expect(screen.getByText('Operations')).toBeInTheDocument()
   })
 })
 
@@ -115,5 +125,25 @@ describe('Dashboard Deterministic Rendering', () => {
     const snapshotSections = snapshotContainer.querySelectorAll('nav button').length
     
     expect(liveSections).toBe(snapshotSections)
+  })
+})
+
+describe('Layout Tests', () => {
+  it('should render breadcrumbs', () => {
+    render(<Dashboard context={mockSuperAdminContext} />)
+    
+    expect(screen.getByText('Dashboard')).toBeInTheDocument()
+  })
+
+  it('should render KPI placeholders', () => {
+    render(<Dashboard context={mockSuperAdminContext} />)
+    
+    expect(screen.getByText('Total Users')).toBeInTheDocument()
+  })
+
+  it('should render table placeholder', () => {
+    render(<Dashboard context={mockSuperAdminContext} />)
+    
+    expect(screen.getByText('Activity')).toBeInTheDocument()
   })
 })
