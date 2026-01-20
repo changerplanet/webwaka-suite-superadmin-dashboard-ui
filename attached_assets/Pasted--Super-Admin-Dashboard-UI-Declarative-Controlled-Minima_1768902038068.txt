@@ -1,0 +1,201 @@
+
+Super Admin Dashboard UI (Declarative, Controlled, Minimal UI)
+
+⸻
+
+CONTEXT
+
+You are operating as Replit AI on behalf of the WebWaka Modular Platform.
+
+This task is UI IMPLEMENTATION ONLY, strictly governed by the WebWaka Constitution and Phase 4 architecture.
+
+🚫 You must NOT invent business logic
+🚫 You must NOT hardcode roles or permissions
+🚫 You must NOT bypass Phase 4A controls
+🚫 You must NOT proceed unless the repo is cloned successfully
+
+⸻
+
+SOURCE OF TRUTH
+	•	GitHub Organization: ChangerPlanet
+	•	Target Repository:
+👉 webwaka-suite-superadmin-dashboard-ui
+	•	Branch: main
+	•	Deployment: Vercel (already configured, auto-deploy on push)
+	•	Control Engine:
+👉 webwaka-core-dashboard-control (Phase 4A)
+
+⸻
+
+🚨 HARD PRECONDITION (MANDATORY)
+
+STEP 0 — CLONE OR STOP
+
+You MUST do the following before writing any code:
+	1.	Clone this repository from GitHub:
+
+https://github.com/changerplanet/webwaka-suite-superadmin-dashboard-ui
+
+
+	2.	Verify:
+	•	Repo is present in workspace
+	•	You are on branch main
+	•	You have push access
+
+❌ If the repository cannot be cloned
+❌ If the repo is missing
+❌ If you do not have push access
+
+👉 STOP IMMEDIATELY and report the issue.
+👉 DO NOT scaffold a new project.
+👉 DO NOT write code outside the repo.
+
+⸻
+
+OBJECTIVE
+
+Implement the Super Admin Dashboard UI as a thin, declarative renderer that:
+	•	Consumes Phase 4B dashboard declarations
+	•	Delegates all visibility decisions to Phase 4A engine
+	•	Renders UI only for resolved sections
+	•	Supports snapshot-based offline evaluation
+	•	Is mobile-first, clean, minimal, and extensible
+
+This UI is NOT the source of truth.
+It is a pure consumer.
+
+⸻
+
+UI ARCHITECTURE (STRICT)
+
+Framework
+	•	Next.js (App Router)
+	•	TypeScript
+	•	Tailwind CSS
+	•	Shadcn/UI (optional, minimal)
+	•	No backend server logic
+
+Allowed Responsibilities
+
+✅ Render dashboard layout
+✅ Render sections returned by resolver
+✅ Show “hidden” reason messages (explainability)
+✅ Support snapshot-based rendering
+✅ Responsive (mobile-first)
+
+Forbidden Responsibilities
+
+❌ Permission checks
+❌ Entitlement checks
+❌ Feature flag evaluation
+❌ Role-based logic
+❌ API-side business logic
+
+⸻
+
+REQUIRED INTEGRATION
+
+Phase 4A Engine Usage (MANDATORY)
+
+The UI must import and use:
+	•	resolveDashboard(...)
+	•	generateDashboardSnapshot(...)
+	•	verifyDashboardSnapshot(...)
+	•	evaluateFromSnapshot(...)
+
+From:
+
+webwaka-core-dashboard-control
+
+All menu visibility MUST come from:
+	•	Permissions
+	•	Entitlements
+	•	Feature flags
+
+Never hardcode menu visibility.
+
+⸻
+
+IMPLEMENTATION TASKS
+
+1️⃣ App Skeleton
+	•	Root layout
+	•	Super Admin dashboard page
+	•	Sidebar + main content area
+	•	Mobile-first navigation (collapsible)
+
+2️⃣ Dashboard Resolution Flow
+	•	Accept DashboardContext (mocked for now)
+	•	Call Phase 4A resolver
+	•	Receive ResolvedDashboard
+	•	Render only visible sections
+	•	Display hidden sections with explanation (optional dev mode)
+
+3️⃣ Snapshot Support
+	•	Generate snapshot after resolution
+	•	Verify snapshot before reuse
+	•	Allow rendering from snapshot (simulate offline mode)
+
+4️⃣ Section Rendering
+
+For each resolved section:
+	•	Render title
+	•	Render placeholder panel (no business UI yet)
+	•	Clearly mark as “Controlled by Core”
+
+⸻
+
+TESTING REQUIREMENTS
+
+You must include tests proving:
+	•	Deterministic rendering (same input = same UI)
+	•	Hidden sections are not rendered
+	•	Snapshot-based rendering matches live rendering
+	•	No hardcoded permissions or roles exist
+
+Target coverage: ≥80%
+
+⸻
+
+COMMIT & DEPLOYMENT
+	1.	Commit directly to main
+	2.	Push to GitHub
+	3.	Confirm Vercel auto-deployment triggered
+	4.	Report Preview URL
+
+⸻
+
+REQUIRED FINAL REPORT
+
+When complete, respond with:
+
+A. GitHub
+	•	Repo name
+	•	Commit SHA
+	•	Files added/modified
+
+B. Vercel
+	•	Preview deployment URL
+	•	Confirmation auto-deploy worked
+
+C. Guarantees
+
+Explicit confirmation that:
+	•	❌ No hardcoded roles
+	•	❌ No permission logic in UI
+	•	✅ All visibility via Phase 4A
+	•	✅ UI is declarative & controlled
+
+⸻
+
+⛔ HARD STOP
+
+After submitting the report:
+
+⛔ STOP
+⛔ Do NOT proceed to Partner UI
+⛔ Await explicit authorization
+
+⸻
+
+If anything blocks cloning or pushing, STOP and report.
