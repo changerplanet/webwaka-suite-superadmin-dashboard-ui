@@ -1,0 +1,218 @@
+
+🔒 PHASE 4B-1 REMEDIATION PROMPT (REPLIT)
+
+CONTEXT — READ CAREFULLY
+
+You are working on Phase 4B-1 — WebWaka Super Admin Dashboard UI.
+
+This is a STRICT REMEDIATION TASK, not new development.
+
+The current implementation is functional but CONSTITUTIONALLY NON-COMPLIANT.
+
+Your task is to refactor the existing codebase to fully align with the
+WebWaka Ecosystem Constitution v1.5+ and the locked Phase 4B-1 specification.
+
+🚫 DO NOT add features
+🚫 DO NOT change UI scope or layout
+🚫 DO NOT introduce new permissions / entitlements / flags
+🚫 DO NOT re-implement control logic locally
+🚫 DO NOT proceed if canonical control packages cannot be consumed
+
+⸻
+
+SOURCE OF TRUTH (IMMUTABLE)
+
+Constitutional Rules (Non-Negotiable):
+	1.	UI must be a pure consumer
+	2.	ALL visibility decisions MUST flow through Phase 4A control engines
+	3.	ZERO local implementations of:
+	•	permissions
+	•	entitlements
+	•	feature flags
+	•	dashboard resolution logic
+	4.	Evaluation MUST be deterministic
+	•	❌ new Date()
+	•	❌ system time
+	•	❌ randomness
+
+⸻
+
+🚨 CURRENT VIOLATIONS (MANDATORY TO FIX)
+
+❌ Local dashboard control logic exists
+❌ Canonical control packages not consumed
+❌ Control logic located in wrong files
+❌ Direct new Date() usage breaks determinism
+
+These MUST be corrected.
+
+⸻
+
+🎯 OBJECTIVE
+
+Bring webwaka-suite-superadmin-dashboard-ui into full constitutional compliance by:
+	1.	Removing all local control logic
+	2.	Consuming canonical control packages from GitHub
+	3.	Centralizing control consumption into a single consumer
+	4.	Ensuring deterministic evaluation
+	5.	Preserving all existing UI behavior and layout
+
+⸻
+
+✅ REQUIRED ACTIONS (STEP-BY-STEP)
+
+1️⃣ DELETE LOCAL CONTROL LOGIC (MANDATORY)
+
+Completely remove:
+
+lib/dashboard-control.ts
+
+There must be ZERO locally implemented:
+	•	resolveDashboard()
+	•	permissions
+	•	entitlements
+	•	feature flags
+	•	visibility logic
+
+⸻
+
+2️⃣ INSTALL CANONICAL CONTROL PACKAGES (MANDATORY)
+
+Add GitHub-based dependencies:
+
+{
+  "dependencies": {
+    "webwaka-core-dashboard-control": "github:changerplanet/webwaka-core-dashboard-control",
+    "webwaka-suite-superadmin-dashboard-control": "github:changerplanet/webwaka-suite-superadmin-dashboard-control"
+  }
+}
+
+If these cannot be installed → STOP and report immediately.
+
+⸻
+
+3️⃣ CREATE SINGLE CONTROL CONSUMER (MANDATORY)
+
+Create exactly:
+
+src/lib/control-consumer.ts
+
+This file must be the ONLY place importing control logic.
+
+Example structure (adapt, do not copy blindly):
+
+import {
+  superAdminDashboardDeclaration
+} from "webwaka-suite-superadmin-dashboard-control";
+
+import {
+  resolveDashboard,
+  generateDashboardSnapshot,
+  evaluateFromSnapshot
+} from "webwaka-core-dashboard-control";
+
+export {
+  superAdminDashboardDeclaration,
+  resolveDashboard,
+  generateDashboardSnapshot,
+  evaluateFromSnapshot
+};
+
+🚨 No other file may import control packages directly.
+
+⸻
+
+4️⃣ REFACTOR UI TO BE PURE CONSUMER
+
+Update UI code so that:
+	•	All visibility decisions:
+	•	Flow through resolveDashboard(...)
+	•	All rendering:
+	•	Uses resolved dashboard output
+	•	UI contains:
+	•	❌ NO permission checks
+	•	❌ NO entitlement checks
+	•	❌ NO feature flag checks
+	•	❌ NO role logic
+
+UI = render only, never decide.
+
+⸻
+
+5️⃣ FIX DETERMINISM (MANDATORY)
+
+Replace ALL:
+
+new Date()
+Date.now()
+
+With:
+	•	Explicit evaluationTime passed from context
+	•	OR fixed deterministic values for now
+
+NO implicit time usage allowed.
+
+⸻
+
+6️⃣ FIX CI — NO MASKED FAILURES
+
+Remove any masking such as:
+
+npm test || true
+
+CI must fail loudly on:
+	•	test failure
+	•	build failure
+	•	lint failure
+
+⸻
+
+7️⃣ VERIFY BEFORE COMMIT (MANDATORY)
+
+Before pushing:
+	•	✅ npm test passes
+	•	✅ npm run build passes
+	•	✅ No local control logic exists
+	•	✅ Only src/lib/control-consumer.ts imports control packages
+	•	✅ UI behavior unchanged visually
+
+⸻
+
+🔍 REQUIRED PROOF (DO NOT SKIP)
+
+Add or update tests proving:
+	1.	Dashboard visibility changes when control input changes
+	2.	Determinism (same input → same output, tested 10×)
+	3.	No UI file imports control logic except control-consumer.ts
+
+⸻
+
+📌 FINAL COMMIT REQUIREMENTS
+
+Your commit must:
+	•	Remove all local control logic
+	•	Consume canonical control packages only
+	•	Preserve UI behavior
+	•	Strengthen CI correctness
+
+⸻
+
+⛔ HARD STOP
+
+After completing this remediation:
+
+⛔ STOP
+⛔ Do NOT proceed to Phase 4C
+⛔ Await Manus re-verification
+
+⸻
+
+ACKNOWLEDGEMENT FORMAT
+
+Reply only with:
+
+“Remediation acknowledged. Proceeding exactly as instructed.”
+
+Then execute.
+
+⸻
