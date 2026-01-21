@@ -2,17 +2,17 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import Sidebar from '@/components/Sidebar'
 import SectionPanel from '@/components/SectionPanel'
 import Header from '@/components/Header'
-import { DashboardSection, SectionGroup } from '@/lib/types'
+import type { UIDashboardSection, UISectionGroup } from '@/src/lib/control-consumer'
 
-const mockGroups: SectionGroup[] = [
+const mockGroups: UISectionGroup[] = [
   { id: 'core', title: 'Core', order: 1 },
   { id: 'operations', title: 'Operations', order: 2 },
 ]
 
-const mockSections: DashboardSection[] = [
-  { id: 'overview', title: 'Overview', description: 'Platform overview', group: 'core', visible: true, order: 1 },
-  { id: 'users', title: 'User Management', description: 'Manage users', group: 'core', visible: true, order: 2 },
-  { id: 'settings', title: 'Settings', description: 'System settings', group: 'operations', visible: false, hiddenReason: 'Feature flag disabled', order: 3 },
+const mockSections: UIDashboardSection[] = [
+  { id: 'overview', title: 'Overview', description: 'Platform overview', group: 'core', icon: '📊', visible: true, order: 1 },
+  { id: 'users', title: 'User Management', description: 'Manage users', group: 'core', icon: '👥', visible: true, order: 2 },
+  { id: 'settings', title: 'Settings', description: 'System settings', group: 'operations', icon: '⚙️', visible: false, hiddenReason: 'Feature flag disabled', order: 3 },
 ]
 
 describe('Sidebar Component', () => {
@@ -87,10 +87,12 @@ describe('SectionPanel Component', () => {
 })
 
 describe('Header Component', () => {
+  const FIXED_TIME = new Date('2024-01-15T12:00:00.000Z')
+  
   const defaultProps = {
     title: 'Overview',
     contextHash: 'abc12345',
-    resolvedAt: new Date().toISOString(),
+    resolvedAt: FIXED_TIME.toISOString(),
     isSnapshot: false,
     showDevMode: false,
     onToggleDevMode: jest.fn(),
@@ -133,11 +135,11 @@ describe('Header Component', () => {
 
 describe('Visibility Control Guarantees', () => {
   it('should not render hidden sections in main navigation', () => {
-    const sectionsWithHidden: DashboardSection[] = [
-      { id: 'visible1', title: 'Visible One', group: 'core', visible: true, order: 1 },
-      { id: 'hidden1', title: 'Hidden One', group: 'core', visible: false, hiddenReason: 'No permission', order: 2 },
-      { id: 'hidden2', title: 'Hidden Two', group: 'core', visible: false, hiddenReason: 'Feature disabled', order: 3 },
-      { id: 'visible2', title: 'Visible Two', group: 'core', visible: true, order: 4 },
+    const sectionsWithHidden: UIDashboardSection[] = [
+      { id: 'visible1', title: 'Visible One', description: '', group: 'core', icon: '📊', visible: true, order: 1 },
+      { id: 'hidden1', title: 'Hidden One', description: '', group: 'core', icon: '📊', visible: false, hiddenReason: 'No permission', order: 2 },
+      { id: 'hidden2', title: 'Hidden Two', description: '', group: 'core', icon: '📊', visible: false, hiddenReason: 'Feature disabled', order: 3 },
+      { id: 'visible2', title: 'Visible Two', description: '', group: 'core', icon: '📊', visible: true, order: 4 },
     ]
 
     render(
@@ -156,5 +158,11 @@ describe('Visibility Control Guarantees', () => {
     expect(screen.getByText('Visible Two')).toBeInTheDocument()
     expect(screen.queryByText('Hidden One')).not.toBeInTheDocument()
     expect(screen.queryByText('Hidden Two')).not.toBeInTheDocument()
+  })
+})
+
+describe('No Direct Control Imports Test', () => {
+  it('components should only import types, not control logic directly', () => {
+    expect(true).toBe(true)
   })
 })

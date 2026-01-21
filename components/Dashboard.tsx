@@ -1,40 +1,37 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
-import { DashboardContext, ResolvedDashboard, DashboardSnapshot } from '@/lib/types'
-import { 
-  resolveDashboard, 
-  generateDashboardSnapshot, 
-  evaluateFromSnapshot 
-} from '@/lib/dashboard-control'
+import type { 
+  UIDashboardContext, 
+  UIResolvedDashboard, 
+  UIDashboardSnapshot 
+} from '@/src/lib/control-consumer'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import SectionContent from './sections/SectionContent'
 
 interface DashboardProps {
-  context: DashboardContext
-  initialSnapshot?: DashboardSnapshot | null
+  context: UIDashboardContext
+  initialResolvedDashboard: UIResolvedDashboard
+  initialSnapshot?: UIDashboardSnapshot | null
 }
 
-export default function Dashboard({ context, initialSnapshot }: DashboardProps) {
+export default function Dashboard({ 
+  context, 
+  initialResolvedDashboard,
+  initialSnapshot 
+}: DashboardProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [showDevMode, setShowDevMode] = useState(false)
-  const [useSnapshot, setUseSnapshot] = useState(!!initialSnapshot)
+  const [useSnapshot, setUseSnapshot] = useState(false)
   const [activeSection, setActiveSection] = useState('')
 
-  const resolvedDashboard: ResolvedDashboard = useMemo(() => {
+  const resolvedDashboard = useMemo(() => {
     if (useSnapshot && initialSnapshot) {
-      const fromSnapshot = evaluateFromSnapshot(initialSnapshot)
-      if (fromSnapshot) {
-        return fromSnapshot
-      }
+      return initialSnapshot.dashboard
     }
-    return resolveDashboard(context)
-  }, [context, initialSnapshot, useSnapshot])
-
-  const snapshot = useMemo(() => {
-    return generateDashboardSnapshot(resolvedDashboard)
-  }, [resolvedDashboard])
+    return initialResolvedDashboard
+  }, [initialResolvedDashboard, initialSnapshot, useSnapshot])
 
   const visibleSections = resolvedDashboard.sections.filter(s => s.visible)
 
@@ -80,6 +77,7 @@ export default function Dashboard({ context, initialSnapshot }: DashboardProps) 
                   <p className="font-medium text-purple-700">Context</p>
                   <p className="text-slate-600">User: {context.userId}</p>
                   <p className="text-slate-600">Role: {context.role}</p>
+                  <p className="text-slate-600">Tenant: {context.tenantId}</p>
                 </div>
                 <div>
                   <p className="font-medium text-purple-700">Resolution</p>
@@ -89,14 +87,22 @@ export default function Dashboard({ context, initialSnapshot }: DashboardProps) 
                 </div>
                 <div>
                   <p className="font-medium text-purple-700">Snapshot</p>
-                  <p className="text-slate-600">Signature: {snapshot.signature}</p>
-                  <p className="text-slate-600">Expires: {new Date(snapshot.expiresAt).toLocaleString()}</p>
-                  <button
-                    onClick={() => setUseSnapshot(!useSnapshot)}
-                    className="mt-2 px-3 py-1 bg-purple-600 text-white rounded text-xs hover:bg-purple-700"
-                  >
-                    {useSnapshot ? 'Use Live Resolution' : 'Use Snapshot'}
-                  </button>
+                  {initialSnapshot ? (
+                    <>
+                      <p className="text-slate-600">Checksum: {initialSnapshot.coreSnapshot.checksum}</p>
+                      <p className="text-slate-600">Expires: {initialSnapshot.expiresAt}</p>
+                    </>
+                  ) : (
+                    <p className="text-slate-600">No snapshot available</p>
+                  )}
+                  {initialSnapshot && (
+                    <button
+                      onClick={() => setUseSnapshot(!useSnapshot)}
+                      className="mt-2 px-3 py-1 bg-purple-600 text-white rounded text-xs hover:bg-purple-700"
+                    >
+                      {useSnapshot ? 'Use Live Resolution' : 'Use Snapshot'}
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

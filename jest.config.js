@@ -9,9 +9,12 @@ const customJestConfig = {
   testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
+    '^webwaka-core-dashboard-control$': '<rootDir>/__mocks__/webwaka-core-dashboard-control.ts',
+    '^webwaka-suite-superadmin-dashboard-control$': '<rootDir>/__mocks__/webwaka-suite-superadmin-dashboard-control.ts',
   },
   collectCoverageFrom: [
     'lib/**/*.{js,ts}',
+    'src/**/*.{js,ts}',
     'components/**/*.{js,ts,tsx}',
     '!**/*.d.ts',
   ],
