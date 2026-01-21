@@ -1,0 +1,222 @@
+
+🧭 Phase 4B — UI Expansion (Authoritative Plan)
+
+Phase 4B Objective (Locked)
+
+Complete the Admin-facing UI layer of WebWaka as pure declarative consumers of the already-ratified control cores.
+
+This phase does NOT:
+	•	introduce business logic
+	•	introduce new permissions/entitlements/flags
+	•	reimplement control engines
+	•	touch Core or Control repos
+
+⸻
+
+Phase 4B Sub-Phases (Strict Order)
+
+Phase 4B-1 — Super Admin Dashboard UI
+
+Status: ⏭️ STARTING NOW
+Purpose: Platform-wide governance & observability UI
+Repo: webwaka-suite-superadmin-dashboard-ui
+Platform: Replit (UI + GitHub push + Vercel auto-deploy)
+
+⸻
+
+Phase 4B-2 — Partner Dashboard UI
+
+Pure consumer of:
+	•	Core Dashboard Control
+	•	Partner Control Declarations
+
+⸻
+
+Phase 4B-3 — Tenant Dashboard UI
+
+Pure consumer of:
+	•	Core Dashboard Control
+	•	Tenant Control Declarations
+
+⸻
+
+✅ Why Replit Is the Correct Platform (Final)
+	•	Reliable GitHub clone & push
+	•	Predictable Next.js behavior
+	•	Deterministic CI control
+	•	No hidden scaffolding
+	•	Works cleanly with Vercel
+
+Lovable ❌ (cannot clone repos)
+Emergent ❌ (over-scaffolds, mismatched stack)
+
+⸻
+
+🚀 PHASE 4B-1 — REPLIT EXECUTION PROMPT
+
+(Copy–Paste Exactly as Is)
+
+⸻
+
+CONTEXT (READ CAREFULLY)
+
+You are executing Phase 4B-1 — Super Admin Dashboard UI for the WebWaka platform.
+
+This is a UI-ONLY IMPLEMENTATION.
+
+🚫 DO NOT implement business logic
+🚫 DO NOT define permissions, entitlements, or feature flags
+🚫 DO NOT reimplement control engines
+🚫 DO NOT scaffold anything before cloning
+
+⸻
+
+REPOSITORY (MANDATORY FIRST STEP)
+
+Repository:
+https://github.com/changerplanet/webwaka-suite-superadmin-dashboard-ui
+
+🔴 CRITICAL
+	1.	Clone the repository FIRST
+	2.	If the repo is empty:
+	•	Clone it as-is
+	•	Do NOT add any placeholder files
+	3.	If Replit auto-adds files:
+	•	DELETE everything added
+	•	Ensure the repo state matches GitHub exactly before proceeding
+
+If the repo cannot be cloned exactly → STOP and report
+
+⸻
+
+SOURCE OF TRUTH (IMMUTABLE)
+
+WebWaka Ecosystem Constitution v1.5+
+
+Mandatory principles:
+	•	Nigeria-first (₦ only)
+	•	Mobile-first UI
+	•	UI is a pure consumer
+	•	All visibility & access flows through Phase 4A
+	•	Deterministic outputs
+	•	Offline-safe snapshots
+	•	No demo data
+
+⸻
+
+REQUIRED CONTROL DEPENDENCIES
+
+Consume ONLY these (via GitHub):
+
+{
+  "dependencies": {
+    "webwaka-core-dashboard-control": "github:changerplanet/webwaka-core-dashboard-control",
+    "webwaka-suite-superadmin-dashboard-control": "github:changerplanet/webwaka-suite-superadmin-dashboard-control"
+  }
+}
+
+
+⸻
+
+ARCHITECTURE REQUIREMENTS
+
+1️⃣ Single Control Consumer (MANDATORY)
+
+Create:
+
+src/lib/control-consumer.ts
+
+This must be the ONLY file importing control logic.
+
+No other file may import:
+	•	permissions
+	•	entitlements
+	•	feature flags
+	•	dashboard declarations
+
+⸻
+
+2️⃣ UI Structure
+
+Implement a Next.js 14 (App Router) UI with:
+	•	Collapsible sidebar
+	•	Section-based navigation
+	•	Mobile-first responsive layout
+	•	Section landing pages (no fake data)
+	•	“Controlled by Core” indicators (non-functional, visual only)
+
+⸻
+
+3️⃣ Visibility Rules (STRICT)
+
+All section visibility must be resolved via:
+
+resolveDashboard(...)
+
+❌ No role checks
+❌ No if (canView)
+❌ No hardcoded access rules
+
+UI renders only what Phase 4A resolves
+
+⸻
+
+4️⃣ Currency & Locale
+	•	Currency: ₦ (NGN) ONLY
+	•	Locale: en-NG
+	•	Any currency formatting must explicitly enforce NGN
+
+⸻
+
+5️⃣ Determinism
+	•	No Date.now()
+	•	No random values
+	•	All evaluations use explicit timestamps
+
+⸻
+
+6️⃣ Tests (REQUIRED)
+
+Write tests proving:
+	•	Visibility changes when control input changes
+	•	Determinism (10× same input → same output)
+	•	Snapshot parity (online vs offline)
+	•	No UI file imports control logic except control-consumer.ts
+
+⸻
+
+7️⃣ Build & CI
+	•	npm test must fail loudly
+	•	npm run build must pass
+	•	No masked commands (|| true is forbidden)
+
+⸻
+
+FINAL DELIVERABLE
+
+You must provide:
+	1.	Working Super Admin Dashboard UI
+	2.	Tests passing
+	3.	Build passing
+	4.	Code pushed to main
+	5.	No constitutional violations
+
+⸻
+
+HARD STOP
+
+After completion:
+
+⛔ STOP
+⛔ Do NOT proceed to Phase 4B-2
+⛔ Await explicit authorization
+
+⸻
+
+ACKNOWLEDGEMENT FORMAT
+
+Reply only with:
+
+“Phase 4B-1 acknowledged. Cloning repository and proceeding exactly as instructed.”
+
+Then execute.
