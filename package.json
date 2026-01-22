@@ -12,12 +12,13 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.36.9",
+    "@webwaka/core-dashboard-control": "^0.1.0",
+    "@webwaka/suite-superadmin-dashboard-control": "^0.1.0",
     "next": "^14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "uuid": "^13.0.0",
-    "@webwaka/core-dashboard-control": "^0.1.0",
-    "@webwaka/suite-superadmin-dashboard-control": "^0.1.0"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.8",
