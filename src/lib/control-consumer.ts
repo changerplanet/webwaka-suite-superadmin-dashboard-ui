@@ -35,12 +35,12 @@ import {
   type EntitlementSnapshot,
   type FeatureSnapshot,
   type HiddenReason,
-} from 'webwaka-core-dashboard-control';
+} from '@webwaka/core-dashboard-control';
 
 import {
   MODULE_ID as SUPERADMIN_MODULE_ID,
   VERSION as SUPERADMIN_VERSION,
-} from 'webwaka-suite-superadmin-dashboard-control';
+} from '@webwaka/suite-superadmin-dashboard-control';
 
 /**
  * SuperAdmin Dashboard Declaration
