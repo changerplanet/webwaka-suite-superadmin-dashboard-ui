@@ -305,3 +305,36 @@ export async function updateTenantBranding(
     body: JSON.stringify(data),
   });
 }
+
+// Phase 6.3: Domain Management APIs
+
+export async function getDomains(token: string, tenantId?: string) {
+  const query = tenantId ? `?tenantId=${tenantId}` : '';
+  return fetchAPI(`/domains${query}`, token);
+}
+
+export async function createDomain(
+  token: string,
+  data: {
+    tenantId: string;
+    hostname: string;
+    verificationMethod: 'TXT' | 'CNAME';
+  }
+) {
+  return fetchAPI('/domains', token, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function verifyDomain(token: string, domainId: string) {
+  return fetchAPI(`/domains/${domainId}/verify`, token, {
+    method: 'POST',
+  });
+}
+
+export async function deleteDomain(token: string, domainId: string) {
+  return fetchAPI(`/domains/${domainId}`, token, {
+    method: 'DELETE',
+  });
+}

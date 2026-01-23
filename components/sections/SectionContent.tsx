@@ -16,6 +16,7 @@ import ModulesSection from './ModulesSection'
 import PricingSection from './PricingSection'
 import { PlatformBrandingSection } from './PlatformBrandingSection'
 import { TenantBrandingSection } from './TenantBrandingSection'
+import { DomainManagementSection } from './DomainManagementSection'
 
 interface SectionContentProps {
   section: DashboardSection
@@ -194,6 +195,11 @@ export default function SectionContent({ section }: SectionContentProps) {
   }
   if (section.id === 'tenant-branding') {
     return <TenantBrandingSection />
+  }
+  
+  // Phase 6.3: Domain Management section
+  if (section.id === 'domains') {
+    return <DomainManagementSection />
   }
 
   const config = sectionConfigs[section.id] || {
