@@ -9,6 +9,11 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import OverviewSection from './OverviewSection'
 import PartnersSection from './PartnersSection'
 import PermissionsSection from './PermissionsSection'
+import AuditLogsSection from './AuditLogsSection'
+import FeatureFlagsSection from './FeatureFlagsSection'
+import EntitlementsSection from './EntitlementsSection'
+import ModulesSection from './ModulesSection'
+import PricingSection from './PricingSection'
 
 interface SectionContentProps {
   section: DashboardSection
@@ -162,6 +167,23 @@ export default function SectionContent({ section }: SectionContentProps) {
   }
   if (section.id === 'permissions') {
     return <PermissionsSection />
+  }
+  
+  // Phase 5: Governance & Monetization sections
+  if (section.id === 'audit-logs') {
+    return <AuditLogsSection />
+  }
+  if (section.id === 'feature-flags') {
+    return <FeatureFlagsSection />
+  }
+  if (section.id === 'entitlements') {
+    return <EntitlementsSection />
+  }
+  if (section.id === 'modules') {
+    return <ModulesSection />
+  }
+  if (section.id === 'pricing') {
+    return <PricingSection />
   }
 
   const config = sectionConfigs[section.id] || {

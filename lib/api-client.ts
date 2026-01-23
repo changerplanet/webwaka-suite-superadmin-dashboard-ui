@@ -108,3 +108,114 @@ export async function assignRole(
     body: JSON.stringify(data),
   });
 }
+
+// Phase 5: Governance & Monetization APIs
+
+// Audit Logs APIs
+export async function getAuditLogs(
+  token: string,
+  params?: { tenantId?: string; actorUserId?: string; entityType?: string; startDate?: string; endDate?: string }
+) {
+  const queryParams = new URLSearchParams();
+  if (params?.tenantId) queryParams.append('tenantId', params.tenantId);
+  if (params?.actorUserId) queryParams.append('actorUserId', params.actorUserId);
+  if (params?.entityType) queryParams.append('entityType', params.entityType);
+  if (params?.startDate) queryParams.append('startDate', params.startDate);
+  if (params?.endDate) queryParams.append('endDate', params.endDate);
+  
+  const query = queryParams.toString();
+  return fetchAPI(`/audit-logs${query ? `?${query}` : ''}`, token);
+}
+
+// Feature Flags APIs
+export async function getFeatureFlags(token: string) {
+  return fetchAPI('/feature-flags', token);
+}
+
+export async function createFeatureFlag(
+  token: string,
+  data: { key: string; name: string; description?: string; enabled?: boolean; environment?: string }
+) {
+  return fetchAPI('/feature-flags', token, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateFeatureFlag(
+  token: string,
+  id: string,
+  data: { name?: string; description?: string; enabled?: boolean; environment?: string }
+) {
+  return fetchAPI(`/feature-flags/${id}`, token, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}
+
+// Entitlements APIs
+export async function getEntitlements(token: string) {
+  return fetchAPI('/entitlements', token);
+}
+
+export async function createEntitlement(
+  token: string,
+  data: { featureKey: string; tenantId?: string; planId?: string; enabled?: boolean; metadata?: any }
+) {
+  return fetchAPI('/entitlements', token, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateEntitlement(
+  token: string,
+  id: string,
+  data: { enabled?: boolean; metadata?: any }
+) {
+  return fetchAPI(`/entitlements/${id}`, token, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}
+
+// Modules APIs
+export async function getModules(token: string) {
+  return fetchAPI('/modules', token);
+}
+
+export async function createModule(
+  token: string,
+  data: { name: string; version: string; status?: string; description?: string; dependencies?: any; metadata?: any }
+) {
+  return fetchAPI('/modules', token, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateModule(
+  token: string,
+  id: string,
+  data: { version?: string; status?: string; description?: string; dependencies?: any; metadata?: any }
+) {
+  return fetchAPI(`/modules/${id}`, token, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}
+
+// Pricing Plans APIs
+export async function getPricingPlans(token: string) {
+  return fetchAPI('/pricing-plans', token);
+}
+
+export async function createPricingPlan(
+  token: string,
+  data: { name: string; description?: string; price: number; currency?: string; interval?: string; features?: any; metadata?: any; active?: boolean }
+) {
+  return fetchAPI('/pricing-plans', token, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
