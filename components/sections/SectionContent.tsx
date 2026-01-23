@@ -7,6 +7,7 @@ import TablePlaceholder from '@/components/layout/TablePlaceholder'
 import ComingSoonBanner from '@/components/layout/ComingSoonBanner'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import OverviewSection from './OverviewSection'
+import PartnersSection from './PartnersSection'
 
 interface SectionContentProps {
   section: DashboardSection
@@ -154,6 +155,9 @@ export default function SectionContent({ section }: SectionContentProps) {
   // Use API-integrated components for specific sections
   if (section.id === 'overview') {
     return <OverviewSection />
+  }
+  if (section.id === 'partners') {
+    return <PartnersSection />
   }
 
   const config = sectionConfigs[section.id] || {
