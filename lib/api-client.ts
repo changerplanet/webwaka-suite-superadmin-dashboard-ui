@@ -219,3 +219,89 @@ export async function createPricingPlan(
     body: JSON.stringify(data),
   });
 }
+
+// Phase 6: Branding & White-Labeling APIs
+
+// Platform Branding APIs
+export async function getPlatformBranding(token: string) {
+  return fetchAPI('/branding/platform', token);
+}
+
+export async function createPlatformBranding(
+  token: string,
+  data: {
+    brandName: string;
+    logoUrl?: string;
+    faviconUrl?: string;
+    primaryColor: string;
+    secondaryColor?: string;
+    accentColor?: string;
+    fontFamily?: string;
+  }
+) {
+  return fetchAPI('/branding/platform', token, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updatePlatformBranding(
+  token: string,
+  data: {
+    brandName?: string;
+    logoUrl?: string;
+    faviconUrl?: string;
+    primaryColor?: string;
+    secondaryColor?: string;
+    accentColor?: string;
+    fontFamily?: string;
+  }
+) {
+  return fetchAPI('/branding/platform', token, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}
+
+// Tenant Branding APIs
+export async function getTenantBranding(token: string, tenantId: string) {
+  return fetchAPI(`/branding/tenant/${tenantId}`, token);
+}
+
+export async function createTenantBranding(
+  token: string,
+  tenantId: string,
+  data: {
+    brandName: string;
+    logoUrl?: string;
+    faviconUrl?: string;
+    primaryColor: string;
+    secondaryColor?: string;
+    accentColor?: string;
+    fontFamily?: string;
+  }
+) {
+  return fetchAPI(`/branding/tenant/${tenantId}`, token, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateTenantBranding(
+  token: string,
+  tenantId: string,
+  data: {
+    brandName?: string;
+    logoUrl?: string;
+    faviconUrl?: string;
+    primaryColor?: string;
+    secondaryColor?: string;
+    accentColor?: string;
+    fontFamily?: string;
+  }
+) {
+  return fetchAPI(`/branding/tenant/${tenantId}`, token, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}

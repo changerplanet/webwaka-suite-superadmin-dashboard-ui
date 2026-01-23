@@ -14,6 +14,8 @@ import FeatureFlagsSection from './FeatureFlagsSection'
 import EntitlementsSection from './EntitlementsSection'
 import ModulesSection from './ModulesSection'
 import PricingSection from './PricingSection'
+import { PlatformBrandingSection } from './PlatformBrandingSection'
+import { TenantBrandingSection } from './TenantBrandingSection'
 
 interface SectionContentProps {
   section: DashboardSection
@@ -184,6 +186,14 @@ export default function SectionContent({ section }: SectionContentProps) {
   }
   if (section.id === 'pricing') {
     return <PricingSection />
+  }
+  
+  // Phase 6: Branding & White-Labeling sections
+  if (section.id === 'branding') {
+    return <PlatformBrandingSection />
+  }
+  if (section.id === 'tenant-branding') {
+    return <TenantBrandingSection />
   }
 
   const config = sectionConfigs[section.id] || {
