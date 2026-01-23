@@ -6,6 +6,7 @@ import KpiPlaceholder from '@/components/layout/KpiPlaceholder'
 import TablePlaceholder from '@/components/layout/TablePlaceholder'
 import ComingSoonBanner from '@/components/layout/ComingSoonBanner'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
+import OverviewSection from './OverviewSection'
 
 interface SectionContentProps {
   section: DashboardSection
@@ -150,6 +151,11 @@ const sectionConfigs: Record<string, {
 }
 
 export default function SectionContent({ section }: SectionContentProps) {
+  // Use API-integrated components for specific sections
+  if (section.id === 'overview') {
+    return <OverviewSection />
+  }
+
   const config = sectionConfigs[section.id] || {
     kpis: [{ title: 'Metric 1' }, { title: 'Metric 2' }, { title: 'Metric 3' }, { title: 'Metric 4' }],
     tableColumns: ['Column 1', 'Column 2', 'Column 3', 'Column 4'],
