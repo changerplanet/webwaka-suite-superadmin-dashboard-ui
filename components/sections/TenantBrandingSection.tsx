@@ -370,7 +370,7 @@ export function TenantBrandingSection() {
   }
 
   if (error && tenants.length === 0) {
-    return <ErrorState message={error} onRetry={loadTenants} />;
+    return <ErrorState error={error} onRetry={loadTenants} />;
   }
 
   if (tenants.length === 0) {

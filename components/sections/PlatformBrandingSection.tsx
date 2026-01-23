@@ -146,7 +146,7 @@ export function PlatformBrandingSection() {
   }
 
   if (error) {
-    return <ErrorState message={error} onRetry={loadBranding} />;
+    return <ErrorState error={error} onRetry={loadBranding} />;
   }
 
   const isFormValid = formData.brandName.trim() !== '' && formData.primaryColor.trim() !== '';

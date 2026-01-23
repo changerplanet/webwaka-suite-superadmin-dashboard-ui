@@ -139,7 +139,7 @@ export function DomainManagementSection() {
   }
 
   if (error) {
-    return <ErrorState message={error} onRetry={loadDomains} />;
+    return <ErrorState error={error} onRetry={loadDomains} />;
   }
 
   return (
