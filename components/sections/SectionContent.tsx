@@ -8,6 +8,7 @@ import ComingSoonBanner from '@/components/layout/ComingSoonBanner'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import OverviewSection from './OverviewSection'
 import PartnersSection from './PartnersSection'
+import PermissionsSection from './PermissionsSection'
 
 interface SectionContentProps {
   section: DashboardSection
@@ -158,6 +159,9 @@ export default function SectionContent({ section }: SectionContentProps) {
   }
   if (section.id === 'partners') {
     return <PartnersSection />
+  }
+  if (section.id === 'permissions') {
+    return <PermissionsSection />
   }
 
   const config = sectionConfigs[section.id] || {
