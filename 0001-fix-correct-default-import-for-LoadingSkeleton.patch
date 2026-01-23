@@ -1,0 +1,25 @@
+From cc5b3a4881c2759b3bc9f9303c5b8f7b9674d9f3 Mon Sep 17 00:00:00 2001
+From: Manus Verification <manus@webwaka.test>
+Date: Fri, 23 Jan 2026 08:06:28 -0500
+Subject: [PATCH] fix: correct default import for LoadingSkeleton
+
+---
+ components/sections/DomainManagementSection.tsx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/components/sections/DomainManagementSection.tsx b/components/sections/DomainManagementSection.tsx
+index 19ea4d8..74cc5bf 100644
+--- a/components/sections/DomainManagementSection.tsx
++++ b/components/sections/DomainManagementSection.tsx
+@@ -3,7 +3,7 @@
+ import { useState, useEffect } from 'react';
+ import { useAuth } from '@clerk/nextjs';
+ import { getDomains, createDomain, verifyDomain, deleteDomain } from '@/lib/api-client';
+-import { LoadingSkeleton } from '@/components/ui/LoadingSkeleton';
++import LoadingSkeleton from '@/components/ui/LoadingSkeleton';
+ import { ErrorState } from '@/components/ui/ErrorState';
+ import { EmptyState } from '@/components/ui/EmptyState';
+ import { formatRelativeTime } from '@/lib/date-utils';
+-- 
+2.34.1
+

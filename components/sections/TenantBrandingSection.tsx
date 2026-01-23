@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@clerk/nextjs';
 import { getTenantBranding, createTenantBranding, updateTenantBranding, getUserTenants, getPlatformBranding } from '@/lib/api-client';
-import { LoadingSkeleton } from '@/components/ui/LoadingSkeleton';
-import { ErrorState } from '@/components/ui/ErrorState';
-import { EmptyState } from '@/components/ui/EmptyState';
+import LoadingSkeleton from '@/components/ui/LoadingSkeleton';
+import ErrorState from '@/components/ui/ErrorState';
+import EmptyState from '@/components/ui/EmptyState';
 
 interface BrandingConfig {
   id: string;

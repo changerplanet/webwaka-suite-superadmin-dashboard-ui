@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@clerk/nextjs';
 import { getDomains, createDomain, verifyDomain, deleteDomain } from '@/lib/api-client';
 import LoadingSkeleton from '@/components/ui/LoadingSkeleton';
-import { ErrorState } from '@/components/ui/ErrorState';
-import { EmptyState } from '@/components/ui/EmptyState';
+import ErrorState from '@/components/ui/ErrorState';
+import EmptyState from '@/components/ui/EmptyState';
 import { formatRelativeTime } from '@/lib/date-utils';
 
 interface Domain {
