@@ -1,0 +1,20 @@
+name: Uptime Monitor
+
+on:
+  schedule:
+    - cron: '*/15 * * * *' # Run every 15 minutes
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  check-uptime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Website Status
+        run: |
+          response=$(curl -o /dev/null -s -w "%{http_code}\n" -L https://admin.webwaka.com/login)
+          if [ "$response" != "200" ]; then
+            echo "Website is down! Status code: $response"
+            exit 1
+          else
+            echo "Website is up! Status code: $response"
+          fi
